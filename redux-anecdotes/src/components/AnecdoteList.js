@@ -4,7 +4,10 @@ import { hideNotification, showNotification } from "../reducers/notificationRedu
 
 
 const AnecdoteList = (props) => {
-  const anecdotes = useSelector(state => state.anecdotes);
+  const anecdotes = useSelector(state => {
+    return state.anecdotes
+      .filter(a => a.content.includes(state.filter));
+  });
   const dispatch = useDispatch();
 
   const vote = (id) => {
