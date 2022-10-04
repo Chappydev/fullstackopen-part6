@@ -30,7 +30,7 @@ const anecdoteReducer = (state = [], action) => {
   }
 }
 
-export const voteFor = (id) => {
+export const incrementVotesFor = (id) => {
   return {
     type: 'VOTE',
     data: { id }
@@ -62,6 +62,13 @@ export const createAnecdote = content => {
   return async dispatch => {
     const newAnecdote = await anecdoteService.createAnecdote(content);
     dispatch(appendAnecdote(newAnecdote));
+  };
+};
+
+export const voteFor = anecdote => {
+  return async dispatch => {
+    const updatedAnecdote = await anecdoteService.addVote(anecdote);
+    dispatch(incrementVotesFor(updatedAnecdote.id));
   };
 };
 
